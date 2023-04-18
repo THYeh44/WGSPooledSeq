@@ -1,0 +1,22 @@
+Package: WGSPooledSeq
+Type: Package
+Title: Whole-Genome Sequence Analysis of Pooled Samples (WGSAPS)
+Version: 0.1.0
+Author: Tsung-Han Yeh
+Maintainer: Tsung-Han Yeh <tsunghan_yeh@ucsb.edu>
+Description: This package analyzes Whole-Genome Sequence (WGS) data from a pooled mutagenesis selection experiment in C. elegans. The analysis in this package focuses on protein-coding genes only. Analysis methods include calculating the normalized mutation density of genes, the fraction of mutation affecting conserve residues or dramatic changes in amino acid property, i.e. deleterious ratio, and the distribution of SNVs in a 2D liner protein structure. 
+    To use this package, the WGS has to be trimmed and mapped to the reference and call variants with the CRISP program[1] and run the first function, "rmAF," to remove high allele frequency SNVs. The filtered SNVs are then ready to process by Ensembl Variant Effect Predictor (VEP)[2] and SIFT4G[3] to evaluate the impact of every SNV. The second function, "pooled_analysis," looks into the VEP and SIFT4G files and calculates the Kolmogorov-Smirnov test on mutation distribution to provide a summarized table of the three analyses mentioned above. Finally, you can display each gene's total non-synonymous mutation and normalized non-synonymous mutation density using the third function, "mut_fig."
+    Here are examples of using the three functions:
+    (1) rmAF: rmAF(CRISP.vcf.txt, Output.txt, AF threshold (0.0-1.0))
+    (2) pooled_analysis(VEP.txt, SIFTannotations.csv, Output.txt)
+    (3) mut_fig(pooled_analysis_output.txt, Chromosome, Left_max, Left_min, Left_ threshold, Right_max, Right_min, Right_ threshold)
+    References:
+    [1] A statistical method for the detection of variants from next-generation resequencing of DNA pools, V. Bansal. Bioinformatics 26(12), 2010 (https://github.com/vibansal/crisp)
+    [2] Ensembl Variant Effect Predictor (VEP) (https://useast.ensembl.org/info/docs/tools/vep/index.html)
+    [3] SIFT web server: predicting effects of amino acid substitutions on proteins, NL Sim et al., Nucleic Acids Res, 2012 (https://sift.bii.a-star.edu.sg/index.html)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.1
+Depends: 
+    R (>= 2.10)
