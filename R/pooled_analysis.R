@@ -9,6 +9,7 @@
 
 pooled_analysis <- function(raw_VEP, SIFT_file, Dup, output){
   library(dplyr)
+  library(tidyr)
   data(hardmask_list)
   # Remove mutations in low complicity region (duplicated region)
   if(Dup == TRUE){
@@ -182,7 +183,7 @@ pooled_analysis <- function(raw_VEP, SIFT_file, Dup, output){
     final_df <- merge(semisemi_df, geneinfo, by = "WBGENEID") %>%
       mutate(NonSynMut_perKb=NonSynMut/(CDS_Length/1000)) %>%
       mutate_if(is.factor, as.character)
-    rm(geneinfo,non_syn_df, NonSynMut_df, totalFreq_df, working_df)
+    rm(,non_syn_df, NonSynMut_df, totalFreq_df, working_df)
     # KS test
     a <- raw_VEP %>% filter(Consequence == "missense_variant" |
                               Consequence == "missense_variant,splice_region_variant"|
