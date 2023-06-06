@@ -4,10 +4,10 @@
 \alias{pooled_analysis}
 \title{Analyze pooled sequencing data}
 \usage{
-pooled_analysis(raw_VEP, SIFT_file, output)
+pooled_analysis(raw_VEP, SIFT_file, Dup, output)
 }
 \arguments{
-\item{1)}{Input the original VEP .txt file generated from Ensembl, 2) Input the SIFT .csv file generayed from SIFT 4G, and 3) Name the output file.}
+\item{1)}{Input the original VEP .txt file generated from Ensembl, 2) Input the SIFT .csv file generayed from SIFT 4G, 3) Remove mutations in duplicated regions (T/F), and 4) Name the output file.}
 }
 \description{
 This function generate a table including mutations density, deleterious ratio, and KS p-value of every coding gene.

@@ -9,7 +9,6 @@
 
 pooled_analysis <- function(raw_VEP, SIFT_file, Dup, output){
   library(dplyr)
-  library(tidyr)
   data(hardmask_list)
   # Remove mutations in low complicity region (duplicated region)
   if(Dup == TRUE){
