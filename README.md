@@ -23,6 +23,7 @@ or uniform distribution.
 ### Dependencies
 
 * dplyr
+* tidyr
 * ggplot2
 * ggrepel
 * patchwork
@@ -44,7 +45,7 @@ rmAF(CRISP.vcf.txt, Output.txt, AF threshold (0.0-1.0))
 ```
 * Generate a summary table
 ```
-pooled_analysis(VEP.txt, SIFTannotations.csv, Output.txt)
+pooled_analysis(VEP.txt, SIFTannotations.csv, Remove duplicated region(T/F), Output.txt)
 ```
 * Generate a mutation density figure
 ```
