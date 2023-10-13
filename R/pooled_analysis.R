@@ -13,16 +13,21 @@ pooled_analysis <- function(raw_VEP, SIFT_file, Dup, output){
   data(hardmask_list)
   # Remove mutations in low complicity region (duplicated region)
   if(Dup == TRUE){
-  list <- hardmask_list %>% unite("merge", c(CHR, Seq), remove = F, sep = ":") %>%
-    unite("Location", c(merge, Seq), remove = T, sep = "-") %>%
-    select(Location)
-  df_rm <- anti_join(raw_VEP, list, by = "Location")
-  df2_list <- SIFT_file %>% unite("merge", c(CHROM, POS), remove = F, sep = ":") %>%
-    unite("Location", c(merge, POS), remove = F, sep = "-")
-  df2_rm <- anti_join(df2_list, list, by = "Location") %>% select(-Location, -merge)
-  a <- df_rm %>% select(2,4,5,7) %>% group_by(Location) %>% unique() %>% ungroup()
-  working_df <- data.frame(WBGENEID=a$Gene, IMPACT=a$IMPACT, Consequence=a$Consequence) %>% filter(!IMPACT=="MODIFIER")
-  rm(a,list,df2_list)
+    list <- hardmask_list %>% unite("merge", c(CHR, Seq), remove = F, sep = ":") %>%
+      unite("Location", c(merge, Seq), remove = T, sep = "-") %>%
+      select(Location)
+    df_rm <- anti_join(raw_VEP, list, by = "Location")
+    df2_list <- SIFT_file %>% unite("merge", c(CHROM, POS), remove = F, sep = ":") %>%
+      unite("Location", c(merge, POS), remove = F, sep = "-")
+    df2_rm <- anti_join(df2_list, list, by = "Location") %>% select(-Location, -merge)
+    a <- df_rm %>% select(2,4,5,7) %>% group_by(Location) %>% unique() %>% ungroup()
+    working_df <- data.frame(WBGENEID=a$Gene, IMPACT=a$IMPACT, Consequence=a$Consequence) %>% filter(!IMPACT=="MODIFIER")
+    rm(a,list,df2_list)
+    } else {
+    a <- raw_VEP %>% select(2,4,5,7) %>% group_by(Location) %>% unique() %>% ungroup()
+    working_df <- data.frame(WBGENEID=a$Gene, IMPACT=a$IMPACT, Consequence=a$Consequence) %>% filter(!IMPACT=="MODIFIER")
+    rm(a)
+    }
   # Count total mutations of each gene (includes up/down stream and science mutation)
   a <- data.frame(table(working_df$WBGENEID))
   totalFreq_df <- data.frame(WBGENEID = a$Var1, TotalFreq = a$Freq)
